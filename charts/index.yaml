@@ -1,0 +1,229 @@
+apiVersion: v1
+entries:
+  minio:
+  - annotations:
+      category: Infrastructure
+      images: |
+        - name: minio
+          image: docker.io/bitnami/minio:2025.5.24-debian-12-r5
+        - name: minio-client
+          image: docker.io/bitnami/minio-client:2025.5.21-debian-12-r2
+        - name: minio-object-browser
+          image: docker.io/bitnami/minio-object-browser:2.0.1-debian-12-r1
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:12-debian-12-r46
+      licenses: Apache-2.0
+      tanzuCategory: service
+    apiVersion: v2
+    appVersion: 2025.5.24
+    created: "2025-07-03T14:18:04.283896177+08:00"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: MinIO(R) is an object storage server, compatible with Amazon S3 cloud
+      storage service, mainly used for storing unstructured data (such as photos,
+      videos, log files, etc.).
+    digest: 3003f44db276207e48b8bb0c44ccc6554d3714530d4e85df3f1dc6b767cb4132
+    home: https://bitnami.com
+    icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/minio/img/minio-stack-220x234.png
+    keywords:
+    - minio
+    - storage
+    - object-storage
+    - s3
+    - cluster
+    maintainers:
+    - name: Broadcom, Inc. All Rights Reserved.
+      url: https://github.com/bitnami/charts
+    name: minio
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/minio
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/charts/minio-17.0.4.tgz
+    version: 17.0.4
+  nginx:
+  - annotations:
+      category: Infrastructure
+      images: |
+        - name: git
+          image: docker.io/bitnami/git:2.43.2-debian-12-r2
+        - name: nginx
+          image: docker.io/bitnami/nginx:1.25.4-debian-12-r2
+        - name: nginx-exporter
+          image: docker.io/bitnami/nginx-exporter:1.1.0-debian-12-r7
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.25.4
+    created: "2025-07-03T14:18:04.285914903+08:00"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: NGINX Open Source is a web server that can be also used as a reverse
+      proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
+      to its ability to provide faster content.
+    digest: 981177c9e0f403050bd0ad5bc5d3a34a4c25461d5b8b597b59e78260214b08cc
+    home: https://bitnami.com
+    icon: https://bitnami.com/assets/stacks/nginx/img/nginx-stack-220x234.png
+    keywords:
+    - nginx
+    - http
+    - web
+    - www
+    - reverse proxy
+    maintainers:
+    - name: VMware, Inc.
+      url: https://github.com/bitnami/charts
+    name: nginx
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/nginx
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/charts/nginx-15.14.0.tgz
+    version: 15.14.0
+  onyx-stack:
+  - annotations:
+      category: Productivity
+      images: |
+        - name: webserver
+          image: docker.io/onyxdotapp/onyx-web-server:latest
+        - name: background
+          image: docker.io/onyxdotapp/onyx-backend:latest
+        - name: vespa
+          image: vespaengine/vespa:8.526.15
+      licenses: MIT
+    apiVersion: v2
+    appVersion: latest
+    created: "2025-07-03T14:18:04.28041479+08:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.3.1
+    - condition: vespa.enabled
+      name: vespa
+      repository: https://onyx-dot-app.github.io/vespa-helm-charts
+      version: 0.2.23
+    - condition: nginx.enabled
+      name: nginx
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.14.0
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.1.0
+    - condition: minio.enabled
+      name: minio
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 17.0.4
+    description: A Helm chart for Kubernetes
+    digest: 77e614a80ac0d85440dc934894ccd3a80ea422c52f6557644bd3e48944e6abe0
+    home: https://www.onyx.app/
+    name: onyx-stack
+    sources:
+    - https://github.com/onyx-dot-app/onyx
+    type: application
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/onyx-stack-0.2.2.tgz
+    version: 0.2.2
+  postgresql:
+  - annotations:
+      category: Database
+      images: |
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:12-debian-12-r16
+        - name: postgres-exporter
+          image: docker.io/bitnami/postgres-exporter:0.15.0-debian-12-r14
+        - name: postgresql
+          image: docker.io/bitnami/postgresql:16.2.0-debian-12-r6
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 16.2.0
+    created: "2025-07-03T14:18:04.290484901+08:00"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: PostgreSQL (Postgres) is an open source object-relational database
+      known for reliability and data integrity. ACID-compliant, it supports foreign
+      keys, joins, views, triggers and stored procedures.
+    digest: 3c8125526b06833df32e2f626db34aeaedb29d38f03d15349db6604027d4a167
+    home: https://bitnami.com
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - name: VMware, Inc.
+      url: https://github.com/bitnami/charts
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/charts/postgresql-14.3.1.tgz
+    version: 14.3.1
+  redis:
+  - annotations:
+      category: Database
+      images: |
+        - name: kubectl
+          image: docker.io/bitnami/kubectl:1.31.0-debian-12-r1
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:12-debian-12-r27
+        - name: redis
+          image: docker.io/bitnami/redis:7.4.0-debian-12-r2
+        - name: redis-exporter
+          image: docker.io/bitnami/redis-exporter:1.62.0-debian-12-r3
+        - name: redis-sentinel
+          image: docker.io/bitnami/redis-sentinel:7.4.0-debian-12-r1
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 7.4.0
+    created: "2025-07-03T14:18:04.296224908+08:00"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Redis(R) is an open source, advanced key-value store. It is often
+      referred to as a data structure server since keys can contain strings, hashes,
+      lists, sets and sorted sets.
+    digest: 250a5aa91b4a3eb00848d9e758851d8a81859d08bf0b8cf26cee081876b012cb
+    home: https://bitnami.com
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - name: Broadcom, Inc. All Rights Reserved.
+      url: https://github.com/bitnami/charts
+    name: redis
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/redis
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/charts/redis-20.1.0.tgz
+    version: 20.1.0
+  vespa:
+  - apiVersion: v2
+    appVersion: 8.526.15
+    created: "2025-07-03T14:18:04.296535526+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 5fab841cd8248d7792190f1d75b5b69034b1b6b166b41014bd00efa9f2fca561
+    name: vespa
+    type: application
+    urls:
+    - https://github.com/shyamsunderrai/my-charts.git/charts/vespa-0.2.23.tgz
+    version: 0.2.23
+generated: "2025-07-03T14:18:04.268221038+08:00"
